@@ -1,0 +1,7 @@
+(define (myequal? l1 l2)
+  (cond ((and (number? l1) (number? l2)) (= l1 l2))
+        ((and (symbol? l1) (symbol? l2)) (eq? l1 l2))
+        ((and (null? l1) (null? l2)) true)
+        ((and (pair? l1) (pair? l2)) 
+         (and (eq? (car l1) (car l2) (equal? (cdr l1) (cdr l2)))))
+        (else false)))

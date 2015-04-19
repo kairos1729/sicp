@@ -1,0 +1,28 @@
+(define (square x)
+  (* x x))
+
+(define (square-tree tree)
+  (cond ((null? tree) nil)
+        ((not (pair? tree)) (square tree))
+        (else (cons (square-tree (car tree))
+                    (square-tree (cdr tree))))))
+
+(define (square-tree-map tree)
+  (map (lambda (sub-tree)
+         (if (pair? sub-tree)
+             (square-tree-map sub-tree)
+             (square sub-tree)))
+       tree))
+
+(define (tree-map f tree)
+  (map (lambda (sub-tree)
+         (if (pair? sub-tree)
+             (square-tree-map sub-tree)
+             (f sub-tree)))
+       tree))
+
+(define (subsets s)
+  (if (null? s) 
+      (list nil)
+      (let ((rest (subsets (cdr s))))
+        (append rest (map (lambda (r) (cons (car s) r)) rest)))))
